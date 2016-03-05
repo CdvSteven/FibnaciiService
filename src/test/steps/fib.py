@@ -13,7 +13,7 @@ class httpurl:
 		return bytes.decode('utf-8').strip()
 
 def fibs(n, ip="localhost", port=8080):
-    return httpurl().get("http://%s:%s/FibonacciNumber/Fibonacci.do?number=%d&Submit=submit" %(ip, port, n))
+    return httpurl().get("http://%s:%s/FibnacciService/fibonacci.do?number=%d&submit=submit" %(ip, port, n))
 
 @given('we have the number {input}')
 def have_number(context,input):
@@ -21,9 +21,10 @@ def have_number(context,input):
 
 @when('we call the web service')
 def call_web_service(context):
-    context.result=fibs(context.input)
+    context.result=fibs(context.input, "54.183.236.44")
 
 @then('we check the result {output}')
 def check_result(context,output):
     assert context.result == output, "fibonacci input: %d, expected: %s, while we get %s" %(context.input, output, context.result)
+
 
